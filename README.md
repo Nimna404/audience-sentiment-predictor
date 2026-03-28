@@ -2,7 +2,7 @@
 the-audience-project/
 │
 ├── data/
-│   ├── raw/                 <-- Your script will save the CSV here!
+│   ├── raw/                 
 │   ├── interim/             
 │   └── processed/           
 │
@@ -11,8 +11,8 @@ the-audience-project/
 │   └── 02_data_analysis.ipynb     
 │
 ├── src/                     
-│   └── fetch_dataset.py     <-- SAVE YOUR SCRIPT RIGHT HERE
+│   └── fetch_dataset.py     
 │
-├── .gitignore               <-- Make sure to add 'data/' and your API keys here
+├── .gitignore               
 ├── README.md                
 └── requirements.txt
