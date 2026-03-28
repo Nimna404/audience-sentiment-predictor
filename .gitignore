@@ -1,0 +1,14 @@
+# Ignore data folders
+data/raw/
+data/interim/
+data/processed/
+
+# Ignore environment variables / API keys
+.env
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore Jupyter checkpoints
+.ipynb_checkpoints/
