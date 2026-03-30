@@ -8,7 +8,7 @@ Spoiler: The math proves that making a "good" movie does not guarantee making a 
 
 📊 The Final Dashboard
 
-(Note: Replace the link below with the actual path to your dashboard screenshot)
+(https://github.com/Nimna404/audience-sentiment-predictor-2026/blob/9904f65aa9a9fd3a614bd369ef9988ad161f46d2/Images/audience-sentiment-predictor.png)
 
 🏗️ Project Architecture & Methodology
 
@@ -74,6 +74,12 @@ Target Skewness Correction: Box office revenue is exponentially skewed (a few bi
                             
 Cross-Validation: Replacing the single train/test split with K-Fold Cross-Validation to ensure model stability across smaller datasets.
 
+---
+
+## 📖 Deep Dive Case Study
+Want to see the full business context, my data cleaning methodology, and the step-by-step build process? 
+
+**👉 [Read the comprehensive Case Study on Notion here](https://www.notion.so/Audience-Sentiment-Predictor-333a927116ea80028305d3ffaf4ea8e6?source=copy_link)**
 
 
 
@@ -105,3 +111,5 @@ audience-sentiment-predictor/
 ├── .gitignore                                    # Ignores .venv and system files
 ├── README.md                                     # Project documentation
 └── requirements.txt                              # Python package dependencies
+
+
