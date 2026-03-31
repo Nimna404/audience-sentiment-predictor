@@ -72,6 +72,59 @@ A RandomForestRegressor machine learning model was deployed to test if final Box
   </tr>
 </table>
 <br>
+
+<h3><b>3. Predictive Visualizations & Deep-Dive Insights</b></h3>
+To go beyond exploratory data analysis, a custom Python script (`visualize_model.py`) was developed to train the Random Forest model and extract diagnostic visuals.
+
+<br>
+<table>
+  <thead>
+    <tr>
+      <th width="50%">Analysis & Insights</th>
+      <th width="50%">Visualization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <h4><b>A. What Drives the Box Office? (Feature Importance)</b></h4>
+        <ul>
+           <li><strong>Hype Over Quality:</strong> The model reveals that IMDb Votes is the most significant predictor of box office revenue. It outweighs both IMDb Ratings and Rotten Tomatoes scores.</li>
+           <li><strong>Analyst Takeaway:</strong> Cultural footprint and audience engagement (measured by the volume of ratings) act as a stronger proxy for financial success than pure critical acclaim.</li>
+        </ul>
+      </td>
+      <td>
+        <img src="https://github.com/Nimna404/audience-sentiment-predictor/blob/518ecca5e41b4c10222a294dd0a5fea05fa6f37e/Images/feature_importance.png" alt="Random Forest Feature Importance" width="100%">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4><b>B. Revenue Distribution (Target Skewness)</b></h4>
+        <ul>
+           <li><strong>The Blockbuster Skew:</strong> The distribution of global box office revenue is heavily right-skewed. The vast majority of theatrical releases cluster under $300 Million, with a long tail of rare, massive blockbusters reaching past $600 Million.</li>
+           <li><strong>Analyst Takeaway:</strong> This skewness makes predicting box office returns inherently challenging, as the financial model of the film industry relies on extreme outliers to balance out average performers.</li>
+        </ul>
+      </td>
+      <td>
+        <img src="https://github.com/Nimna404/audience-sentiment-predictor/blob/518ecca5e41b4c10222a294dd0a5fea05fa6f37e/Images/target_skew.png" alt="Box Office Revenue Distribution (Target Skewness)" width="100%">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h4><b>C. Model Performance (Actual vs. Predicted)</b></h4>
+        <ul>
+           <li><strong>Tracking the Trend:</strong> The scatter plot maps the Random Forest's predicted revenues against actual box office numbers, compared to a baseline of perfect prediction.</li>
+           <li><strong>Analyst Takeaway:</strong> While the model captures the general directional trend, there is noticeable variance. This aligns with the model's metrics, proving that while sentiment is crucial, unseen operational variables are needed for perfect accuracy.</li>
+        </ul>
+      </td>
+      <td>
+        <img src="https://github.com/Nimna404/audience-sentiment-predictor/blob/518ecca5e41b4c10222a294dd0a5fea05fa6f37e/Images/actual_vs_predicted.png" alt="Actual vs. Predicted Box Office Revenue" width="100%">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
 <h2>Dataset Structure & Data Dictionary</h2>
 The data was extracted via a custom Python pipeline querying the TMDb and OMDb APIs. The raw JSON was cleaned, cast to appropriate data types, and scaled using pandas to create "the_audience_cleaned.csv" (142 rows).
 <br>
@@ -121,12 +174,39 @@ The data was extracted via a custom Python pipeline querying the TMDb and OMDb A
 <h2>Technical Pipeline & Repository Structure</h2>
 <h3>Tools Utilized:</h3>
 <ul>
-   <li>Python (Data Engineering): requests (API extraction), pandas (cleaning, NaN handling, regex), time (rate-limit throttling).</li>
+   <li>Python (Data Engineering & ML): `requests` (API extraction), `pandas` (cleaning), `RandomForestRegressor`, `train_test_split`, `matplotlib` (visualizations).</li>
 
    <li>Power BI (Visualization): Custom DAX measures, locked-axis scatter plotting, interactive tooltips.</li>
-
-   <li>Scikit-Learn (Machine Learning): RandomForestRegressor, train_test_split (80/20).</li>
 </ul>   
+<br>
+
+## Project Structure
+
+```text
+AUDIENCE-SENTIMENT-PREDICTOR/
+├── Dashboard/
+│   └── audience-sentiment-predictor-2026.pbix
+├── Data/
+│   ├── Processed/
+│   │   └── the_audience_cleaned.csv
+│   └── Raw/
+│       └── the_audience_master.csv
+├── Images/
+│   ├── actual_vs_predicted.png
+│   ├── audience-sentiment-predictor.png
+│   ├── feature_importance.png
+│   └── target_skew.png
+├── Src/
+│   ├── clean_data.py
+│   ├── fetch_dataset.py
+│   ├── predict_box_office.py
+│   └── visualize_model.py
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
+
 <br>
 
 <div align="center">
@@ -134,7 +214,3 @@ The data was extracted via a custom Python pipeline querying the TMDb and OMDb A
 👉🏼[Read the Comprehensive Technical Case Study on Notion here](https://www.notion.so/Audience-Sentiment-Predictor-333a927116ea80028305d3ffaf4ea8e6?source=copy_link)
 
 © 2026 Nimna D Aluthgamage. All Rights Reserved. Data extracted from public API endpoints (TMDb, OMDb) for portfolio demonstration.
-
-</div>
-
-
