@@ -1,115 +1,140 @@
-🎬 Box Office vs. Audience Sentiment: An End-to-End Data Pipeline
+<h1 align="center">🎬 Audience Sentiment & Box Office Performance Report</h1>
 
-📌 Executive Summary
+Industry Background & Business ContextThe Hollywood Landscape operates on a prevailing assumption: high review scores generate word-of-mouth, which directly translates to Box Office revenue. As production budgets soar past $200M and theaters face increasing competition from streaming platforms, studios can no longer afford to greenlight projects based purely on "gut feeling" or perceived script quality.
 
-Can internet hype and review scores predict a movie's financial success? This full-stack data project extracts live movie data via APIs, engineers a clean dataset, visualizes audience vs. critic sentiment in Power BI, and deploys a Machine Learning model to test the predictive power of review scores on final Box Office revenue.
+An in-depth analysis was conducted analyzing the top-grossing theatrical releases from 2023–2026, encompassing over 140 global releases and **$28.4 Billion** in total box office revenue. The objective of this report is to evaluate the true financial impact of post-release audience and critic sentiment, utilizing both descriptive analytics and machine learning.
 
-Spoiler: The math proves that making a "good" movie does not guarantee making a "profitable" movie.
+<h2> Northstar Objectives:</h2>
+<ul>
+   <li>Sentiment Mapping: Quantify the leniency gap between professional critics (Rotten Tomatoes) and general audiences (IMDb).</li>
+   <li>Financial Correlation: Determine the exact correlation between review scores, hype volume (total votes), and final global revenue.</li>
+   <li>Predictive Viability: Evaluate if early sentiment metrics can accurately forecast final box office numbers using a Random Forest AI model.</li>
+</ul>
 
-📊 The Final Dashboard
+<h2>Executive Summary</h2>
+<h3><b>1. The Sentiment Landscape: Critics vs. Audiences</b></h3><br>
 
-(https://github.com/Nimna404/audience-sentiment-predictor-2026/blob/9904f65aa9a9fd3a614bd369ef9988ad161f46d2/Images/audience-sentiment-predictor.png)
+![Dashboard Screenshot](https://github.com/Nimna404/audience-sentiment-predictor/blob/61700399f88a6ea832966586b9c2064058c2ea97/Images/audience-sentiment-predictor.png)
 
-🏗️ Project Architecture & Methodology
+<br>
+<table border="1" align="center" width="100%">
+  <tr>
+     <th width="50%"><b>Key Insights: The Audience Forgiveness Gap</b></th>
+     <th width="50%"><b>Strategic Recommendations</b></th>
+  </tr>
+    
+  <tr>
+    <td valign="top">
+       <ul>
+        <li><strong>1. Baseline Audience Leniency:</strong><br>Mapping Rotten Tomatoes against IMDb revealed a massive void in the bottom-right quadrant. Audiences rarely rate a blockbuster below 50/100, whereas critics frequently score the same films below 30/100.</li>
+        <br>
+        <li><strong>2. The "Popcorn" Effect:</strong><br>Several high-grossing films (e.g., Fast X, Mario Bros) achieved massive financial success despite "Rotten" critic scores, driven entirely by audience scores holding steady above the 65/100 threshold.</li>
+        <br>
+        <li><strong>3. Top-Heavy Revenue Concentration:</strong><br>The Top 5 grossing movies accounted for a disproportionately massive percentage of the $28.4B total, indicating a "winner-takes-all" theatrical environment.</li>
+      </ul>
+    </td>
+    <td valign="top">
+      <ul>
+        <li><strong>1. Shift Marketing Focus:</strong><br>Studios should deprioritize "Critic Approved" marketing campaigns for tentpole blockbusters and pivot ad spend toward highlighting audience-driven metrics (e.g., verified audience scores, social media hype).</li>
+        <br>
+        <li><strong>2. The 65/100 Safety Net:</strong><br>Focus test screenings entirely on ensuring the general audience score clears the 65/100 threshold. Critic appeasement is statistically irrelevant to final revenue for IP-driven films.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<br>
+<h3><b>2. Predictive Analytics: Forecasting the Box Office</b></h3>
 
-This project was built from scratch following the complete Data Science Lifecycle:
-1. Data Extraction (The API Pipeline)
+A RandomForestRegressor machine learning model was deployed to test if final Box Office revenue could be accurately predicted using only three variables: RT Score, IMDb Rating, and IMDb Vote Volume.
+<br>
+<table border="1" align="center" width="100%">
+  <tr>
+    <th width="50%"><b>Model Performance Metrics</b></th>
+    <th width="50%"><b>Business Interpretation & Next Steps</b></th>
+  </tr>
+  <tr>
+    <td valign="top">
+      <ul>
+        <li><strong>R-Squared ($R^2$) Score: 0.34</strong><br>The model explains 34% of the variance in global box office revenue.</li>
+        <br>
+        <li><strong>Mean Absolute Error (MAE): $113.9M</strong><br>On average, the model's prediction deviates from the actual revenue by $114 million.</li>
+        <br>
+        <li><strong>Executive Simulation:</strong><br>Input: 88% RT, 75/100 IMDb, 500k Votes.<br>AI Prediction: $423,283,455</li>
+      </ul>
+    </td>
+    <td valign="top">
+      <ul>
+        <li><strong>1. Sentiment &ne; Dollars:</strong><br>An $R^2$ of 0.34 mathematically proves that making a "good" movie does not guarantee a profitable one. Sentiment accounts for barely one-third of financial success.</li>
+        <br>
+        <li><strong>2. The Missing 66%:</strong><br>The majority of box office variance is driven by external operational factors. To achieve a production-grade forecasting model ($R^2 > 0.75$), Phase 2 of this architecture must integrate data for Production Budget, Marketing (P&A) Spend, and Existing IP/Franchise Status.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<br>
+<h2>Dataset Structure & Data Dictionary</h2>
+The data was extracted via a custom Python pipeline querying the TMDb and OMDb APIs. The raw JSON was cleaned, cast to appropriate data types, and scaled using pandas to create "the_audience_cleaned.csv" (142 rows).
+<br>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Data Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Title</td>
+      <td>String</td>
+      <td>The official theatrical release title.</td>
+    </tr>
+    <tr>
+      <td>Year</td>
+      <td>Integer</td>
+      <td>The year of theatrical release (2023 - 2026).</td>
+    </tr>
+    <tr>
+      <td>IMDb_Rating</td>
+      <td>Float</td>
+      <td>General audience rating, scaled from 1-10 to 10-100 for 1:1 comparative analysis.</td>
+    </tr>
+    <tr>
+      <td>IMDb_Votes</td>
+      <td>Integer</td>
+      <td>Total volume of user ratings; utilized as a proxy for cultural "hype" and engagement.</td>
+    </tr>
+    <tr>
+      <td>Box_Office</td>
+      <td>Integer</td>
+      <td>Total global theatrical revenue in USD (cleaned of symbols and commas).</td>
+    </tr>
+    <tr>
+      <td>RT_Score</td>
+      <td>Integer</td>
+      <td>Professional critic approval rating percentage (Rotten Tomatoes).</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h2>Technical Pipeline & Repository Structure</h2>
+<h3>Tools Utilized:</h3>
+<ul>
+   <li>Python (Data Engineering): requests (API extraction), pandas (cleaning, NaN handling, regex), time (rate-limit throttling).</li>
 
-   Script: src/fetch_dataset.py
+   <li>Power BI (Visualization): Custom DAX measures, locked-axis scatter plotting, interactive tooltips.</li>
 
-   Process: Built a custom Python script to query the TMDb API (for the top-grossing movies from 2023-2026) and cross-reference them with the OMDb API to extract
-   IMDb ratings, Rotten Tomatoes critic scores, and total Vote volume.
+   <li>Scikit-Learn (Machine Learning): RandomForestRegressor, train_test_split (80/20).</li>
+</ul>   
+<br>
 
-   Challenge Overcome: Handled API rate limiting using time.sleep() and dynamic JSON parsing.
-2. Data Engineering & Cleaning
+<div align="center">
 
-   Script: src/clean_data.py
+👉🏼[Read the Comprehensive Technical Case Study on Notion here](https://www.notion.so/Audience-Sentiment-Predictor-333a927116ea80028305d3ffaf4ea8e6?source=copy_link)
 
-   Process: Utilized pandas to transform messy, real-world JSON data into a clean, analysis-ready CSV.
+© 2026 Nimna D Aluthgamage. All Rights Reserved. Data extracted from public API endpoints (TMDb, OMDb) for portfolio demonstration.
 
-   Transformations: Stripped currency symbols ($, ,), standardized text-to-integers, handled NaN (null) values for unreleased films, and mathematically scaled
-   IMDb scores to a 100-point system to match Rotten Tomatoes.
-
-3. Descriptive Analytics (Power BI)
-
-   File: audience-sentiment-predictor-2026.pbix
-
-   Process: Designed an executive-level dashboard prioritizing high data-to-ink ratios and intuitive UI.
-
-   Key Features:
-
-     Custom DAX Measures: Formatted raw integers into clean, readable KPIs (74%, 6.8/10, $28.4B).
-
-     The "Square Zoom" Scatter Plot: Forced equal, fixed axes (20 to 100) on the scatter plot to visually expose the baseline leniency of general audiences
-     compared to professional critics.
-
-     Custom Tooltips: Built hidden report pages to provide specific movie details (Revenue, Year) when hovering over individual data points.
-
-4. Predictive Analytics (Machine Learning)
-
-   Script: src/predict_box_office.py
-
-   Process: Developed a RandomForestRegressor via scikit-learn to test a financial hypothesis: Can we predict total revenue using only three variables (RT Score,
-   IMDb Rating, IMDb Votes)?
-
-   Methodology: Implemented an 80/20 train_test_split with a locked random_state to prevent data leakage and ensure reproducibility.
-
-🧠 Core Business Insights
-
-1. The "Audience Forgiveness" Gap: The Power BI scatter plot reveals a massive visual void in the bottom-right quadrant. Insight: Critics will happily score a
-   movie a 20/100, but general audiences rarely rate a blockbuster below a 50/100. Audiences are inherently more forgiving.
-
-2. Sentiment Does Not Equal Dollars: The Random Forest AI achieved an $R^2$ score of 0.34. While a junior analyst might view this as a low accuracy score, it
-   mathematically proves a massive industry truth: Review scores only account for roughly 34% of a movie's Box Office variance. The other 66% is driven by outside
-   factors.
-
-🚧 Model Limitations & Future Iterations (V2)
-
-To elevate the predictive model from a V1 Proof-of-Concept to production-grade accuracy ($R^2$ > 0.75), the following steps are required in future iterations:
-
-Feature Expansion: The model is currently "feature starved." Future versions must integrate API data for Production Budget, Marketing (P&A) Spend, and an Existing                    IP Flag (e.g., Marvel/Sequel vs. Original).
-
-Target Skewness Correction: Box office revenue is exponentially skewed (a few billion-dollar movies ruin the curve). Applying a Logarithmic Transformation
-                            (np.log1p()) to the target variable will stabilize the Random Forest's variance.
-                            
-Cross-Validation: Replacing the single train/test split with K-Fold Cross-Validation to ensure model stability across smaller datasets.
-
----
-
-## 📖 Deep Dive Case Study
-Want to see the full business context, my data cleaning methodology, and the step-by-step build process? 
-
-**👉 [Read the comprehensive Case Study on Notion here](https://www.notion.so/Audience-Sentiment-Predictor-333a927116ea80028305d3ffaf4ea8e6?source=copy_link)**
-
-
-
-
-
-
-
-## 📂 Repository Structure
-```text
-audience-sentiment-predictor/
-│
-├── Dashboard/
-│   └── audience-sentiment-predictor-2026.pbix    # Power BI dashboard file
-│
-├── Data/
-│   ├── Processed/
-│   │   └── the_audience_cleaned.csv              # Cleaned, ML-ready data
-│   └── Raw/
-│       └── the_audience_master.csv               # Raw API output
-│
-├── Images/
-│   └── audience-sentiment-predictor.png          # Dashboard screenshot for README
-│
-├── Src/
-│   ├── clean_data.py                             # Pandas cleaning script
-│   ├── fetch_dataset.py                          # API extraction script
-│   └── predict_box_office.py                     # Scikit-learn Random Forest model
-│
-├── .gitignore                                    # Ignores .venv and system files
-├── README.md                                     # Project documentation
-└── requirements.txt                              # Python package dependencies
+</div>
 
 
